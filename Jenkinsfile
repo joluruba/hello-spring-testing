@@ -18,7 +18,7 @@ pipeline {
         }
         stage ('QA') {
         	steps {
-        		withGradlew {
+        		withGradle {
         			sh './gradlew check'
         		}
         	}
