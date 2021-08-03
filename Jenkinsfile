@@ -18,12 +18,12 @@ pipeline {
         }
         stage ('QA') {
         	steps {
+        	    echo 'Checking...'
         		withGradle {
         			sh './gradlew check'
         		}
         	}
         }
-
         stage('Build') {
             steps {
                 echo 'Building...'
