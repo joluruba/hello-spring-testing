@@ -40,7 +40,7 @@ pipeline {
         }
         stage('Security') {
              steps {
-                 sh 'trivy image --format=jason --output=trivy-image.json hello-sping-testing:latest'
+                 sh 'trivy image --format=jason --output=trivy-image.json hellospring:latest'
               }
               post {
                 always{
