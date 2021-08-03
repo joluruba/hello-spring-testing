@@ -45,7 +45,7 @@ pipeline {
               post {
                 always{
                    recordIssues(
-                      enableForFailure: true,
+                      enabledForFailure: true,
                       aggregatingResults: true,
                       tool: trivy(pattern: 'trivy-*.json')
                       )
