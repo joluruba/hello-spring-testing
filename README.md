@@ -1,0 +1,1 @@
+# Stack de Test con jaCoCo entre otros
