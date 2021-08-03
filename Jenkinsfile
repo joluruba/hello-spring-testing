@@ -16,6 +16,14 @@ pipeline {
                 }
             }
         }
+        stage ('QA) {
+        	steps {
+        		witGradle {
+        			sh './gradlew check'
+        		}
+        	}
+        }
+        
         stage('Build') {
             steps {
                 echo 'Building...'
