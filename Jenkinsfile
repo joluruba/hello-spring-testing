@@ -40,8 +40,17 @@ pipeline {
         }
         stage('Security') {
              steps {
-                 sh 'trivy app:latest '
+                 sh 'trivy hellospring:latest --format=jason --output=trivy-image.json hello-sping-testing:latest'
               }
+              post {
+                always{
+                   recordIssues(
+                      enableForFailure: true,
+                      aggregatingResults: true,
+                      tool: trivy(pattern: 'trivy-*.json')
+                      )
+                  }
+               }
         }
         stage('Deploy') {
             steps {
