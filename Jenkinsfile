@@ -35,8 +35,13 @@ pipeline {
         }
         stage('Build') {
             steps {
-                echo 'Building...'
+                sh 'docker-compose build'
             }
+        }
+        stage('Security') {
+             steps {
+                 sh 'trivy app:latest '
+              }
         }
         stage('Deploy') {
             steps {
