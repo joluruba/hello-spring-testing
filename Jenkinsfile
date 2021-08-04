@@ -6,13 +6,14 @@ pipeline {
             steps {
               echo 'Testing...'
                 withGradle {
-                    sh './gradlew clean test'
+                    sh './gradlew clean test pitest'
                 }
               }
              post {
                 always {
                     junit 'build/test-results/test/TEST-*.xml'
                     jacoco execPattern:'build/jacoco/*.exec'
+                    recordIssues(enabledForFailure: true, tool: pit(pattern:"build/reports/pitest/**/*.xml"))
                 }
             }
         }
@@ -27,7 +28,7 @@ pipeline {
     stage ('QA') {
       	steps {
         		withGradle {
-        			sh './gradlew check pitest'
+        			sh './gradlew check'
         		}
            	}
             post {

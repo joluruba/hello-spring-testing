@@ -39,6 +39,9 @@ jacocoTestReport {
 spotbugs {
     ignoreFailures = true
 }
+pmd {
+    ignoreFailures = true
+}
 sonarqube {
     properties {
         property "sonar.projectKey", "joluruba_hello-spring-testing_AXsQOyjYwi4b1Mx_9E2Q"
