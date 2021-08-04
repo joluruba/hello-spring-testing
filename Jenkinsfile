@@ -16,9 +16,7 @@ pipeline {
                 }
             }
         }
-  stage('SCM') {
-    checkout scm
-  }
+
   stage('SonarQube Analysis') {
     steps {
     withSonarQubeEnv(local) {
