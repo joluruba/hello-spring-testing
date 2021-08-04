@@ -16,6 +16,16 @@ pipeline {
                 }
             }
         }
+  stage('SCM') {
+    checkout scm
+  }
+  stage('SonarQube Analysis') {
+    steps {
+    withSonarQubeEnv(local) {
+      sh "./gradlew sonarqube"
+      }
+     }
+    }
         stage ('QA') {
         	steps {
         		withGradle {
@@ -33,6 +43,7 @@ pipeline {
                 }
             }
         }
+
         stage('Build') {
             steps {
                 sh 'docker-compose build'
