@@ -4,12 +4,12 @@ pipeline {
     stages {
         stage('Test') {
             steps {
-                echo 'Testing...'
+              echo 'Testing...'
                 withGradle {
                     sh './gradlew clean test'
                 }
-            }
-            post {
+              }
+             post {
                 always {
                     junit 'build/test-results/test/TEST-*.xml'
                     jacoco execPattern:'build/jacoco/*.exec'
@@ -17,15 +17,15 @@ pipeline {
             }
         }
 
-  stage('SonarQube Analysis') {
-    steps {
-      withSonarQubeEnv(local) {
-       sh "./gradlew sonarqube"
-      }
+    stage('SonarQube Analysis') {
+        steps {
+          withSonarQubeEnv(local) {
+           sh "./gradlew sonarqube"
+        }
+       }
      }
-    }
-        stage ('QA') {
-        	steps {
+    stage ('QA') {
+      	steps {
         		withGradle {
         			sh './gradlew check'
         		}
@@ -38,32 +38,32 @@ pipeline {
                         spotBugs(pattern: 'build/reports/spotbugs/*.xml', useRankAsPriority: true)
                         ]
                     )
-                }
             }
-        }
+         }
+    }
 
-        stage('Build') {
-            steps {
-                sh 'docker-compose build'
-            }
-        }
-        stage('Security') {
-             steps {
-                 sh 'trivy image --format=json --output=trivy-image.json hellospring:latest'
+    stage('Build') {
+          steps {
+            sh 'docker-compose build'
+           }
+    }
+    stage('Security') {
+        steps {
+          sh 'trivy image --format=json --output=trivy-image.json hellospring:latest'
               }
-              post {
-                always{
-                   recordIssues(
-                      enabledForFailure: true,
-                      aggregatingResults: true,
-                      tool: trivy(pattern: 'trivy-*.json')
-                      )
-                  }
-               }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying...'
+        post {
+          always{
+            recordIssues(
+            enabledForFailure: true,
+            aggregatingResults: true,
+            tool: trivy(pattern: 'trivy-*.json')
+                     )
+                 }
+              }
+       }
+    stage('Deploy') {
+       steps {
+          echo 'Deploying...'
             }
         }
     }
