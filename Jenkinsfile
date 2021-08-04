@@ -27,7 +27,7 @@ pipeline {
     stage ('QA') {
       	steps {
         		withGradle {
-        			sh './gradlew check'
+        			sh './gradlew check pitest'
         		}
            	}
             post {

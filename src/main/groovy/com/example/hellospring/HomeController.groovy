@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.ResponseBody
 
 @Controller
-class HomeController {
+class HomeControllergroovy {
 
     @RequestMapping("/hola")
     public @ResponseBody String hola() {
