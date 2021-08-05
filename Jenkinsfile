@@ -17,6 +17,8 @@ pipeline {
                 }
             }
         }
+    stage('Analisis')
+            paralel { //con esto ejecutaremos las 2 fases de Analisis (sonar y QA) en parelelo
 
     stage('SonarQube Analysis') {
         when { expression { false } }
@@ -43,7 +45,7 @@ pipeline {
             }
          }
     }
-
+}
     stage('Build') {
           steps {
             sh 'docker-compose build'
