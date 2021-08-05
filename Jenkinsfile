@@ -17,7 +17,7 @@ pipeline {
                 }
             }
         }
-    stage('Analisis')
+    stage('Analisis') {
             parallel { //con esto ejecutaremos las 2 fases de Analisis (sonar y QA) en parelelo
 
     stage('SonarQube Analysis') {
@@ -45,6 +45,7 @@ pipeline {
             }
          }
     }
+ }
 }
     stage('Build') {
           steps {
