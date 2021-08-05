@@ -1,4 +1,4 @@
-## Stack de Test de covertura con jaCoCo, PMD y SpotBugs entre otros
-* Tambien se trata la seguridad de las imagenes con Trivy
-* Agregado Scaneo de Código mediantes Sonarqube
-* Agregada Función de ejecución en paralelo y que se detenga si alguna en paralelo falla
+# Rama para pruebas de registro en el registry de Gitlab
+* Procedemos a crear la imagen con la app
+* Despés la Taguearemos con varias etiquetas
+* Y por ultimo la subiremos usando el token para desarroyadores a nuestro registry de nuestro Gitlab
