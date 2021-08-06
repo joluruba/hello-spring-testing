@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     stages {
-        
-        stage('Tests') {
+      
+            stage('Tests') {
             failFast true //con esto le decimos a que si una en paralelo falla no sigua 
             parallel {
         stage('Clean-test'){
@@ -24,7 +24,7 @@ pipeline {
                 }
               }
         }
-        }
+        
              post {
                 always {
                     junit 'build/test-results/test/TEST-*.xml'
@@ -32,14 +32,14 @@ pipeline {
                     recordIssues(enabledForFailure: true, tool: pit(pattern:"build/reports/pitest/**/*.xml"))
                 }
             }
-        
+        }
       }
     stage('Analisis') {
             failFast true //con esto le decimos a que si una en paralelo falla no sigua 
             parallel { //con esto ejecutaremos las 2 fases de Analisis (sonar y QA) en parelelo
 
     stage('SonarQube Analysis') {
- //       when { expression { false } } //con esta linea se salta el analisis de sonarqube
+        when { expression { false } } //con esta linea se salta el analisis de sonarqube
         steps {
           withSonarQubeEnv('local') {
            sh './gradlew sonarqube'
