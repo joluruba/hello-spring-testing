@@ -4,7 +4,9 @@ pipeline {
     stages {
         
         stage('Test') {
-            when { expression { false } } //con esto nos saltamos toda esta etapa
+            failFast true //con esto le decimos a que si una en paralelo falla no sigua 
+            parallel {
+ //           when { expression { false } } //con esto nos saltamos toda esta etapa
             steps {
               echo 'Testing...'
                 withGradle {
@@ -19,12 +21,13 @@ pipeline {
                 }
             }
         }
+      }
     stage('Analisis') {
             failFast true //con esto le decimos a que si una en paralelo falla no sigua 
             parallel { //con esto ejecutaremos las 2 fases de Analisis (sonar y QA) en parelelo
 
     stage('SonarQube Analysis') {
-        when { expression { false } } //con esta linea se salta el analisis de sonarqube
+ //       when { expression { false } } //con esta linea se salta el analisis de sonarqube
         steps {
           withSonarQubeEnv('local') {
            sh './gradlew sonarqube'
@@ -32,7 +35,7 @@ pipeline {
        }
      }
     stage ('QA') {
-        when { expression { false } }  //con esto nos saltamos toda esta etapa para acelerar
+//        when { expression { false } }  //con esto nos saltamos toda esta etapa para acelerar
       	steps {
         		withGradle {
         			sh './gradlew check'
