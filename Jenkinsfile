@@ -3,9 +3,10 @@ pipeline {
 
     stages {
         
-        stage('Test') {
+        stage('Tests') {
             failFast true //con esto le decimos a que si una en paralelo falla no sigua 
             parallel {
+        stage('Clean-test'){
  //           when { expression { false } } //con esto nos saltamos toda esta etapa
             steps {
               echo 'Testing...'
@@ -13,6 +14,16 @@ pipeline {
                     sh './gradlew clean test pitest'
                 }
               }
+        }
+                stage('test-pitest'){
+ //           when { expression { false } } //con esto nos saltamos toda esta etapa
+            steps {
+              echo 'Testing pitest'
+                withGradle {
+                    sh './gradlew pitest'
+                }
+              }
+        }
              post {
                 always {
                     junit 'build/test-results/test/TEST-*.xml'
