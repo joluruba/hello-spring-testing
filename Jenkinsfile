@@ -32,8 +32,7 @@ pipeline {
        }
      }
     stage ('QA') {
-        when { expression { false } } 
-//con la anterior linea nos saltamos toda esta etapa
+        when { expression { false } }  //con esto nos saltamos toda esta etapa para acelerar
       	steps {
         		withGradle {
         			sh './gradlew check'
@@ -57,7 +56,7 @@ pipeline {
             sh 'docker build . -t 10.250.7.3:5050/joluruba/hello-spring-testing:latest -t 10.250.7.3:5050/joluruba/hello-spring-testing:1.0.${BUILD_NUMBER}'
             
             withDockerRegistry([url:'http://10.250.7.3:5050', credentialsId:'jenkins-registry2'])
-              sh 'docker push --all-tags 10.250.7.3:5050/joluruba/hello-spring-testing:latest'
+              sh 'docker push --all-tags 10.250.7.3:5050/joluruba/hello-spring-testing'
            }
     }
     stage('Security') {
