@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     stages {
-      
+
             stage('Tests') {
             failFast true //con esto le decimos a que si una en paralelo falla no sigua 
             parallel {
@@ -23,7 +23,7 @@ pipeline {
                     sh './gradlew pitest'
                 }
               }
-        }
+        
         
              post {
                 always {
@@ -32,6 +32,7 @@ pipeline {
                     recordIssues(enabledForFailure: true, tool: pit(pattern:"build/reports/pitest/**/*.xml"))
                 }
             }
+          }
         }
       }
     stage('Analisis') {
