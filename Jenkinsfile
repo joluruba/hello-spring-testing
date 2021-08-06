@@ -53,10 +53,11 @@ pipeline {
 }
     stage('Build-Publish') {
           steps {
+
             sh 'docker build . -t 10.250.7.3:5050/joluruba/hello-spring-testing:latest -t 10.250.7.3:5050/joluruba/hello-spring-testing:1.0.${BUILD_NUMBER}'
-            
-            withDockerRegistry([url:'http://10.250.7.3:5050', credentialsId:'jenkins-registry2'])
+            withDockerRegistry([url:'http://10.250.7.3:5050', credentialsId:'jenkins-registry2']){
               sh 'docker push --all-tags 10.250.7.3:5050/joluruba/hello-spring-testing'
+            }
            }
     }
     stage('Security') {
