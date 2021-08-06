@@ -2,6 +2,7 @@ pipeline {
     agent any
 
     stages {
+        when { expression { false } }//con esto nos saltamos toda esta etapa
         stage('Test') {
             steps {
               echo 'Testing...'
@@ -30,6 +31,7 @@ pipeline {
        }
      }
     stage ('QA') {
+        when { expression { false } }//con esto nos saltamos la etapa
       	steps {
         		withGradle {
         			sh './gradlew check'
