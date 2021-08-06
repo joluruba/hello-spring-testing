@@ -1,6 +1,7 @@
 .git*
 Dockerfile
 docker-compose.*
+Jenkinsfile
 .idea
 build/
 *.json
