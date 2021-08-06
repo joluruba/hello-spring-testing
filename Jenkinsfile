@@ -11,7 +11,7 @@ pipeline {
             steps {
               echo 'Testing...'
                 withGradle {
-                    sh './gradlew clean test pitest'
+                    sh './gradlew clean test '
                 }
               }
         }
@@ -24,6 +24,7 @@ pipeline {
                 }
               }
         }
+        }
              post {
                 always {
                     junit 'build/test-results/test/TEST-*.xml'
@@ -31,7 +32,7 @@ pipeline {
                     recordIssues(enabledForFailure: true, tool: pit(pattern:"build/reports/pitest/**/*.xml"))
                 }
             }
-        }
+        
       }
     stage('Analisis') {
             failFast true //con esto le decimos a que si una en paralelo falla no sigua 
