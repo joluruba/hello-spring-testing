@@ -2,9 +2,9 @@ pipeline {
     agent any
 
     stages {
-        when { expression { false } } 
-//con la anterior linea nos saltamos toda esta etapa
+        
         stage('Test') {
+            when { expression { false } } //con esto nos saltamos toda esta etapa
             steps {
               echo 'Testing...'
                 withGradle {
